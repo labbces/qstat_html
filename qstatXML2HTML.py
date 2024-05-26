@@ -151,7 +151,7 @@ html_output += "</ul>"
 html_output += "<h1>Running Jobs Information</h1>"
 html_output += "<table>"
 #html_output += "<tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th><th>Submission Time</th></tr>"
-html_output += "<tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th></tr>"
+html_output += "<thead><tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th></tr></thead>"
 for queue_name, queue_info in queues.items():
     for job in queue_info['jobs']:
         html_output += "<tr>"
