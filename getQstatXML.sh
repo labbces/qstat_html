@@ -1,5 +1,12 @@
+export SGE_CELL=default
+export SGE_ARCH=lx-amd64
+export SGE_ROOT=/Storage/progs/sge
+export SGE_CLUSTER_NAME=bioinfclustr
+. "/Storage/progs/miniconda3/etc/profile.d/conda.sh"
+
+export PATH=${SGE_ROOT}/bin/${SGE_ARCH}:$PATH
 xmlfile="/home/riano/qstat_html/qstatCluster.xml"
 htmlfile="/home/riano/qstat_html/qstatCluster.html"
 qstat -f -u "*" -xml  > ${xmlfile}
-python3 qstatXML2HTML.py > ${htmlfile}
-scp -P 2222  ${htmlfile} labbces@thevoid:~/www/infra/qstatCluster.html
+/Storage/progs/miniconda3/bin/python3 /home/riano/qstat_html/qstatXML2HTML.py > ${htmlfile}
+scp  -i /root/.ssh/id_rsa -P 2222  ${htmlfile} labbces@thevoid:~/www/infra/qstatCluster.html
