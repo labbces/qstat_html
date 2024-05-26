@@ -177,7 +177,8 @@ html_output += "</table>"
 # Section 3: Pending Jobs table
 html_output += "<h1>Pending Jobs Information</h1>"
 html_output += "<table>"
-html_output += "<tr><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Submission Time</th></tr>"
+html_output += "<thead><tr><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Submission Time</th></tr></thead>"
+html_output += "<tbody>"
 for job in pending_jobs:
     html_output += "<tr>"
     html_output += f"<td>{job['JB_job_number']}</td>"
@@ -187,6 +188,7 @@ for job in pending_jobs:
     html_output += f"<td>{job['slots']}</td>"
     html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
     html_output += "</tr>"
+html_output += "</tbody>"
 html_output += "</table>"
 
 html_output += '''
