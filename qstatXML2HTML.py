@@ -1,8 +1,8 @@
 import xml.etree.ElementTree as ET
 import os.path, time
 
-xmlfile='/home/riano/qstat_html/qstatCluster.xml'
-print("last modified: %s" % time.ctime(os.path.getmtime(xmlfile)))
+xmlFile='/home/riano/qstat_html/qstatCluster.xml'
+lastMod=time.ctime(os.path.getmtime(xmlFile))
 
 
 tree = ET.parse(xmlfile)
@@ -146,6 +146,7 @@ html_output = '''
 '''
 
 # Section 1: Queues and basic information
+html_output += f"<h1>Cluster Information</h1><p>Last update: {lastMod}</p>"
 html_output += "<h1>Queue Information</h1>"
 html_output += "<ul>"
 for queue_name, queue_info in queues.items():
