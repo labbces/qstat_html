@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('/home/riano/qstat_html/qstatClsuter.xml')
+tree = ET.parse('/home/riano/qstat_html/qstatCluster.xml')
 root = tree.getroot()
 
 # Extract queue information
