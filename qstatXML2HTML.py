@@ -5,7 +5,7 @@ xmlFile='/home/riano/qstat_html/qstatCluster.xml'
 lastMod=time.ctime(os.path.getmtime(xmlFile))
 
 
-tree = ET.parse(xmlfile)
+tree = ET.parse(xmlFile)
 root = tree.getroot()
 
 # Extract queue information
