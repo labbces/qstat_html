@@ -146,15 +146,15 @@ html_output = '''
 '''
 
 # Section 1: Queues and basic information
-html_output += f"<h1>Cluster Information</h1><p>Last update: {lastMod}</p>"
-html_output += "<h1>Queue Information</h1>"
+html_output += f"<h1>Cluster Information</h1><p>Last update: {lastMod}</p><p>The current usage policy (that can be seen running qconf -ssconf) implements a balanced approach to job scheduling, with significant consideration given to CPU usage and job priorities. Briefly, jobs are executed in a first-come first-serve basis, once you submit a job, given that the requested resources your job will be exectured by the scheduler. If submitting several jobs you can adjust their priorities (with qalter), and this willbe taken into account by the scheduler.</p>"
+html_output += "<h2>Queue Information</h2>"
 html_output += "<ul>"
 for queue_name, queue_info in queues.items():
     html_output += f"<li><strong>{queue_name}</strong>: Slots Total: {queue_info['slots_total']}, Slots Used: {queue_info['slots_used']}, Load Avg: {queue_info['load_avg']}</li>"
 html_output += "</ul>"
 
 # Section 2: Running Jobs table
-html_output += "<h1>Running Jobs Information</h1>"
+html_output += "<h2>Running Jobs Information</h2>"
 html_output += "<table>"
 #html_output += "<tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th><th>Submission Time</th></tr>"
 html_output += "<thead><tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th></tr></thead>"
