@@ -161,7 +161,7 @@ for queue_name, queue_info in queues.items():
         html_output += f"<td>{job['state']}</td>"
         html_output += f"<td>{job['slots']}</td>"
         html_output += f"<td>{job.get('JAT_start_time', '')}</td>"
-        html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
+#        html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
         html_output += "</tr>"
 html_output += "</table>"
 
