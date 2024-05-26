@@ -176,7 +176,7 @@ for job in pending_jobs:
     html_output += f"<td>{job['JB_owner']}</td>"
     html_output += f"<td>{job['state']}</td>"
     html_output += f"<td>{job['slots']}</td>"
-    html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
+    #html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
     html_output += "</tr>"
 html_output += "</table>"
 
