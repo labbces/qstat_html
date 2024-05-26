@@ -1,6 +1,11 @@
 import xml.etree.ElementTree as ET
+import os.path, time
 
-tree = ET.parse('/home/riano/qstat_html/qstatCluster.xml')
+xmlfile='/home/riano/qstat_html/qstatCluster.xml'
+print("last modified: %s" % time.ctime(os.path.getmtime(xmlfile)))
+
+
+tree = ET.parse(xmlfile)
 root = tree.getroot()
 
 # Extract queue information
