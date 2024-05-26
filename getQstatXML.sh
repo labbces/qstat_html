@@ -1,2 +1,2 @@
-outfile="/home/riano/qstat_html/qstatClsuter.xml"
+outfile="/home/riano/qstat_html/qstatCluster.xml"
 qstat -f -u "*" -xml  > ${outfile}
