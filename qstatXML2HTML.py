@@ -68,6 +68,7 @@ html_output = '''
   <link rel=icon type=image/png href=/media/icon_huce0f58322822551670f82da3d360b308_88239_32x32_fill_lanczos_center_2.png>
   <link rel=apple-touch-icon type=image/png href=/media/icon_huce0f58322822551670f82da3d360b308_88239_180x180_fill_lanczos_center_2.png>
   <link rel=canonical href=http://labbces.cena.usp.br/infra/clusterReservations/>
+  <link href="style.css" rel="stylesheet" />
   <meta property="twitter:card" content="summary"><meta property="og:site_name" content="LabBCES">
   <meta property="og:url" content="http://labbces.cena.usp.br/infra/clusterReservations/">
   <meta property="og:title" content="clusterReservations/ | LabBCES">
