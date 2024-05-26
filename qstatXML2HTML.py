@@ -81,32 +81,62 @@ html_output = '''
  <body id=top data-spy=scroll data-offset=70 data-target=#TableOfContents class="page-wrapper dark" data-wc-page-id=322dbaccf72a6d71f827fdb2866be935>
  <script src=/js/wowchemy-init.min.b986d8d769373f1d4df43d168c348bd4.js></script>
  <aside class=search-modal id=search>
- <div class=container>
- <section class=search-header><div class="row no-gutters justify-content-between mb-3">
- <div class=col-6><h1>Search</h1></div>
- <div class="col-6 col-search-close"><a class=js-search href=# aria-label=Close><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a></div></div><div id=search-box><input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off spellcheck=false type=search class=form-control aria-label=Search...></div></section><section class=section-search-results><div id=search-hits></div></section></div></aside><div class=page-header><nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id=navbar-main><div class=container-xl><div class="d-none d-lg-inline-flex"><a class=navbar-brand href=/><img src=/media/logo_hu4bdaa9ee68286360853798cab7d37789_78789_0x70_resize_lanczos_2.png alt=LabBCES></a></div><button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar-content aria-controls=navbar-content aria-expanded=false aria-label="Toggle navigation">
-<span>
-<i class="fas fa-bars"></i>
-</span>
-</button>
-<div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
-<a class=navbar-brand href=/><img src=/media/logo_hu4bdaa9ee68286360853798cab7d37789_78789_0x70_resize_lanczos_2.png alt=LabBCES></a>
-</div>
-<div class="navbar-collapse main-menu-item collapse justify-content-end" id=navbar-content>
- <ul class="navbar-nav d-md-inline-flex">
-  <li class=nav-item><a class=nav-link href=/post><span>News</span></a></li>
-  <li class=nav-item><a class=nav-link href=/people><span>People</span></a></li>
-  <li class=nav-item><a class=nav-link href=/project><span>Projects</span></a></li>
-  <li class=nav-item><a class=nav-link href=/pictures><span>Pictures</span></a></li>
-  <li class=nav-item><a class=nav-link href=/publication><span>Publications</span></a></li>
-  <li class=nav-item><a class=nav-link href=/event><span>Events</span></a></li>
-  <li class=nav-item><a class=nav-link href=/tools><span>Tools</span></a></li>
-  <li class=nav-item><a class=nav-link href=/teaching><span>Teaching</span></a></li>
-  <li class=nav-item><a class=nav-link href=/infra><span>Infraestructure</span></a></li>
-  <li class=nav-item><a class=nav-link href=/contact><span>Contact</span></a></li>
- </ul>
-</div>
-<ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2"><li class=nav-item><a class="nav-link js-search" href=# aria-label=Search><i class="fas fa-search" aria-hidden=true></i></a></li></ul></div></nav></div><div class=page-body><article class=article><div class="article-container pt-3">
+  <div class=container>
+   <section class=search-header>
+    <div class="row no-gutters justify-content-between mb-3">
+     <div class=col-6><h1>Search</h1></div>
+     <div class="col-6 col-search-close">
+      <a class=js-search href=# aria-label=Close>
+       <i class="fas fa-times-circle text-muted" aria-hidden=true></i>
+      </a>
+     </div>
+    </div>
+    <div id=search-box>
+     <input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off spellcheck=false type=search class=form-control aria-label=Search...>
+    </div>
+   </section>
+   <section class=section-search-results>
+    <div id=search-hits></div>
+   </section>
+  </div>
+ </aside>
+ <div class=page-header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id=navbar-main>
+   <div class=container-xl>
+    <div class="d-none d-lg-inline-flex">
+     <a class=navbar-brand href=/><img src=/media/logo_hu4bdaa9ee68286360853798cab7d37789_78789_0x70_resize_lanczos_2.png alt=LabBCES></a>
+    </div>
+    <button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar-content aria-controls=navbar-content aria-expanded=false aria-label="Toggle navigation">
+     <span>
+      <i class="fas fa-bars"></i>
+     </span>
+    </button>
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+     <a class=navbar-brand href=/><img src=/media/logo_hu4bdaa9ee68286360853798cab7d37789_78789_0x70_resize_lanczos_2.png alt=LabBCES></a>
+    </div>
+    <div class="navbar-collapse main-menu-item collapse justify-content-end" id=navbar-content>
+     <ul class="navbar-nav d-md-inline-flex">
+      <li class=nav-item><a class=nav-link href=/post><span>News</span></a></li>
+      <li class=nav-item><a class=nav-link href=/people><span>People</span></a></li>
+      <li class=nav-item><a class=nav-link href=/project><span>Projects</span></a></li>
+      <li class=nav-item><a class=nav-link href=/pictures><span>Pictures</span></a></li>
+      <li class=nav-item><a class=nav-link href=/publication><span>Publications</span></a></li>
+      <li class=nav-item><a class=nav-link href=/event><span>Events</span></a></li>
+      <li class=nav-item><a class=nav-link href=/tools><span>Tools</span></a></li>
+      <li class=nav-item><a class=nav-link href=/teaching><span>Teaching</span></a></li>
+      <li class=nav-item><a class=nav-link href=/infra><span>Infraestructure</span></a></li>
+      <li class=nav-item><a class=nav-link href=/contact><span>Contact</span></a></li>
+     </ul>
+    </div>
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+     <li class=nav-item><a class="nav-link js-search" href=# aria-label=Search><i class="fas fa-search" aria-hidden=true></i></a></li>
+    </ul>
+   </div>
+  </nav>
+ </div>
+ <div class=page-body>
+  <article class=article>
+   <div class="article-container pt-3">
 '''
 
 # Section 1: Queues and basic information
@@ -149,7 +179,34 @@ for job in pending_jobs:
     html_output += "</tr>"
 html_output += "</table>"
 
-html_output += "</body></html>"
+html_output += '''
+   </div>
+   <div class=share-box aria-hidden=true>
+    <ul class=share>
+     <li><a href="https://twitter.com/intent/tweet?url=http://labbces.cena.usp.br/teaching/&text=Teaching" target=_blank rel=noopener class=share-btn-twitter><i class="fab fa-twitter"></i></a></li>
+     <li><a href="https://www.facebook.com/sharer.php?u=http://labbces.cena.usp.br/teaching/&t=Teaching" target=_blank rel=noopener class=share-btn-facebook><i class="fab fa-facebook"></i></a></li>
+     <li><a href="mailto:?subject=Teaching&body=http://labbces.cena.usp.br/teaching/" target=_blank rel=noopener class=share-btn-email><i class="fas fa-envelope"></i></a></li>
+     <li><a href="https://www.linkedin.com/shareArticle?url=http://labbces.cena.usp.br/teaching/&title=Teaching" target=_blank rel=noopener class=share-btn-linkedin><i class="fab fa-linkedin-in"></i></a></li>
+     <li><a href="whatsapp://send?text=Teaching%20http://labbces.cena.usp.br/teaching/" target=_blank rel=noopener class=share-btn-whatsapp><i class="fab fa-whatsapp"></i></a></li>
+     <li><a href="https://service.weibo.com/share/share.php?url=http://labbces.cena.usp.br/teaching/&title=Teaching" target=_blank rel=noopener class=share-btn-weibo><i class="fab fa-weibo"></i></a></li>
+    </ul>
+   </div>
+  </article>
+ </div>
+ <div class=page-footer><div class=container><footer class=site-footer><p class=powered-by>Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target=_blank rel=noopener>Wowchemy</a> — the free, <a href=https://github.com/wowchemy/wowchemy-hugo-modules target=_blank rel=noopener>open source</a> website builder that empowers creators.</p></footer></div></div><div id=modal class="modal fade" role=dialog><div class=modal-dialog><div class=modal-content><div class=modal-header><h5 class=modal-title>Cite</h5><button type=button class=close data-dismiss=modal aria-label=Close>
+<span aria-hidden=true>&#215;</span></button></div><div class=modal-body><pre><code class="tex hljs"></code></pre></div><div class=modal-footer><a class="btn btn-outline-primary my-1 js-copy-cite" href=# target=_blank><i class="fas fa-copy"></i> Copy</a>
+<a class="btn btn-outline-primary my-1 js-download-cite" href=# target=_blank><i class="fas fa-download"></i> Download</a><div id=modal-error></div></div></div></div></div><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js integrity="sha512-SeiQaaDh73yrb56sTW/RgVdi/mMqNeM2oBwubFHagc5BkixSpP1fvqF47mKzPGWYSSy4RwbBunrJBQ4Co8fRWA==" crossorigin=anonymous></script><script id=search-hit-fuse-template type=text/x-template>
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js></script><script src=/en/js/wowchemy.min.7a65735fc5b6f46dc5d485305a645519.js></script></body></html>
+'''
 
 # Print HTML output
 print(html_output)
