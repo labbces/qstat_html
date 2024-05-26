@@ -148,7 +148,7 @@ html_output += "</ul>"
 
 # Section 2: Running Jobs table
 html_output += "<h1>Running Jobs Information</h1>"
-html_output += "<table border='1'>"
+html_output += "<table>"
 html_output += "<tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th><th>Submission Time</th></tr>"
 for queue_name, queue_info in queues.items():
     for job in queue_info['jobs']:
@@ -166,7 +166,7 @@ html_output += "</table>"
 
 # Section 3: Pending Jobs table
 html_output += "<h1>Pending Jobs Information</h1>"
-html_output += "<table border='1'>"
+html_output += "<table>"
 html_output += "<tr><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Submission Time</th></tr>"
 for job in pending_jobs:
     html_output += "<tr>"
@@ -183,12 +183,12 @@ html_output += '''
    </div>
    <div class=share-box aria-hidden=true>
     <ul class=share>
-     <li><a href="https://twitter.com/intent/tweet?url=http://labbces.cena.usp.br/teaching/&text=Teaching" target=_blank rel=noopener class=share-btn-twitter><i class="fab fa-twitter"></i></a></li>
-     <li><a href="https://www.facebook.com/sharer.php?u=http://labbces.cena.usp.br/teaching/&t=Teaching" target=_blank rel=noopener class=share-btn-facebook><i class="fab fa-facebook"></i></a></li>
-     <li><a href="mailto:?subject=Teaching&body=http://labbces.cena.usp.br/teaching/" target=_blank rel=noopener class=share-btn-email><i class="fas fa-envelope"></i></a></li>
-     <li><a href="https://www.linkedin.com/shareArticle?url=http://labbces.cena.usp.br/teaching/&title=Teaching" target=_blank rel=noopener class=share-btn-linkedin><i class="fab fa-linkedin-in"></i></a></li>
-     <li><a href="whatsapp://send?text=Teaching%20http://labbces.cena.usp.br/teaching/" target=_blank rel=noopener class=share-btn-whatsapp><i class="fab fa-whatsapp"></i></a></li>
-     <li><a href="https://service.weibo.com/share/share.php?url=http://labbces.cena.usp.br/teaching/&title=Teaching" target=_blank rel=noopener class=share-btn-weibo><i class="fab fa-weibo"></i></a></li>
+     <li><a href="https://twitter.com/intent/tweet?url=http://labbces.cena.usp.br/infra/clusterReservations/&text=clusterReservations" target=_blank rel=noopener class=share-btn-twitter><i class="fab fa-twitter"></i></a></li>
+     <li><a href="https://www.facebook.com/sharer.php?u=http://labbces.cena.usp.br/infra/clusterReservations/&t=clusterReservations" target=_blank rel=noopener class=share-btn-facebook><i class="fab fa-facebook"></i></a></li>
+     <li><a href="mailto:?subject=Teaching&body=http://labbces.cena.usp.br/infra/clusterReservations/" target=_blank rel=noopener class=share-btn-email><i class="fas fa-envelope"></i></a></li>
+     <li><a href="https://www.linkedin.com/shareArticle?url=http://labbces.cena.usp.br/infra/clusterReservations/&title=clusterReservations" target=_blank rel=noopener class=share-btn-linkedin><i class="fab fa-linkedin-in"></i></a></li>
+     <li><a href="whatsapp://send?text=Teaching%20http://labbces.cena.usp.br/infra/clusterReservations/" target=_blank rel=noopener class=share-btn-whatsapp><i class="fab fa-whatsapp"></i></a></li>
+     <li><a href="https://service.weibo.com/share/share.php?url=http://labbces.cena.usp.br/infra/clusterReservations/&title=clusterReservations" target=_blank rel=noopener class=share-btn-weibo><i class="fab fa-weibo"></i></a></li>
     </ul>
    </div>
   </article>
@@ -205,7 +205,8 @@ html_output += '''
             </div>
           </div>
         </div>
-      </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js></script><script src=/en/js/wowchemy.min.7a65735fc5b6f46dc5d485305a645519.js></script></body></html>
+      </script><script src=https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin=anonymous></script><script src=/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js></script><script src=/en/js/wowchemy.min.7a65735fc5b6f46dc5d485305a645519.js></script>
+</body></html>
 '''
 
 # Print HTML output
