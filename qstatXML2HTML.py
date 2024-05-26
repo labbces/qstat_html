@@ -152,6 +152,7 @@ html_output += "<h1>Running Jobs Information</h1>"
 html_output += "<table>"
 #html_output += "<tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th><th>Submission Time</th></tr>"
 html_output += "<thead><tr><th>Queue</th><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Start Time</th></tr></thead>"
+html_output += "<tbody>"
 for queue_name, queue_info in queues.items():
     for job in queue_info['jobs']:
         html_output += "<tr>"
@@ -164,6 +165,7 @@ for queue_name, queue_info in queues.items():
         html_output += f"<td>{job.get('JAT_start_time', '')}</td>"
 #        html_output += f"<td>{job.get('JB_submission_time', '')}</td>"
         html_output += "</tr>"
+html_output += "</tbody>"
 html_output += "</table>"
 
 # Section 3: Pending Jobs table
