@@ -3,6 +3,7 @@ import datetime
 import seaborn as sns
 import matplotlib
 import pandas as pd
+import numpy as np
 
 # Use a non-interactive backend
 matplotlib.use('Agg')
@@ -54,12 +55,12 @@ with open(accFile) as f:
 
 # Create a DataFrame from the data
 data = pd.DataFrame({
-    'Pending Time (minutes)': pendingTimes,
-    'Running Time (minutes)': runningTimes
+    'Log Pending Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in pendingTimes]),
+    'Log Running Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in runningTimes])
 })
 
 # Plot the 2D histogram and its 1D projections
-g = sns.jointplot(x='Pending Time (minutes)', y='Running Time (minutes)', data=data, kind='hex')
+g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex')
 
 # Save the figure
 g.savefig("jointplot_histogram.png")
