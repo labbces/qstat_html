@@ -61,12 +61,12 @@ data = pd.DataFrame({
 
 # Customize the plot
 g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex', 
-                  color='cyan', edgecolor='k')
+                  color='#44475a', edgecolor='k')
 
 # Customize the appearance to match the background
 plt.subplots_adjust(top=0.9)
-g.fig.suptitle('Pending vs Running Time (Minutes Log10 transformed)', color='white')
-g.set_axis_labels('Log Pending Time (log10 minutes)', 'Log Running Time (log10 minutes)', fontsize=12, color='white')
+g.fig.suptitle('Pending vs Running Time Minutes (Log10 transformed)', color='white')
+g.set_axis_labels('Pending Time (minutes)', 'Running Time (minutes)', fontsize=12, color='white')
 
 for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
     ax.tick_params(colors='white')
@@ -78,15 +78,21 @@ for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
     ax.yaxis.label.set_color('white')
 
     # Set the ticks for each power of 10
-    ax.set_xticks([np.log10(x) for x in [0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000]])
-    ax.set_xticklabels([0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000])
-    ax.set_yticks([np.log10(x) for x in [0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000]])
-    ax.set_yticklabels([0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000])
+    powers_of_ten = np.log10(np.logspace(-10, 5, num=16))
+    ax.set_xticks(powers_of_ten)
+    ax.set_xticklabels(['$10^{:.0f}$'.format(p) for p in range(-10, 6)])
+    ax.set_yticks(powers_of_ten)
+    ax.set_yticklabels(['$10^{:.0f}$'.format(p) for p in range(-10, 6)])
 
 g.ax_joint.patch.set_facecolor('#282a36')
 g.ax_marg_x.patch.set_facecolor('#282a36')
 g.ax_marg_y.patch.set_facecolor('#282a36')
 
+# Rotate x-axis labels for better readability
+for label in g.ax_joint.get_xticklabels():
+    label.set_rotation(45)
+    label.set_horizontalalignment('right')
+    
 # Save the figure
 file_path = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
 g.savefig(file_path, facecolor='#282a36')
