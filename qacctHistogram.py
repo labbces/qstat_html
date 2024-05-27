@@ -12,8 +12,7 @@ pendingTimes=[]
 runningtimes=[]
 
 with open(accFile) as f:
-    lines = f.readlines()
-    for line in lines:
+    for line in f:
         if line.startswith('qsub_time'):
             submitTime=line.split()[1]
         elif line.startswith('start_time'):
@@ -24,7 +23,7 @@ with open(accFile) as f:
             print(line)
             pendingTime=datetime.datetime.strptime(startTime, "%Y-%m-%dT%H:%M:%S")-datetime.datetime.strptime(submitTime, "%Y-%m-%dT%H:%M:%S")
             runnnigTime=datetime.datetime.strptime(endTime, "%Y-%m-%dT%H:%M:%S")-datetime.datetime.strptime(startTime, "%Y-%m-%dT%H:%M:%S")
-            print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}')
+            print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
             pendingTimes.append(pendingTime)
             runningtimes.append(runnnigTime)
             submitTime=0
