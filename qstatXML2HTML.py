@@ -175,7 +175,7 @@ html_output += "</tbody>"
 html_output += "</table>"
 
 # Section 3: Pending Jobs table
-html_output += "<h1>Pending Jobs Information</h1>"
+html_output += "<h2>Pending Jobs Information</h2>"
 html_output += "<table>"
 html_output += "<thead><tr><th>Job Number</th><th>Job Name</th><th>Job Owner</th><th>State</th><th>Slots</th><th>Submission Time</th></tr></thead>"
 html_output += "<tbody>"
@@ -190,6 +190,11 @@ for job in pending_jobs:
     html_output += "</tr>"
 html_output += "</tbody>"
 html_output += "</table>"
+
+# Section 3: Pending Jobs table
+html_output += "<h2>Waiting and running times</h2>"
+html_output += "<p>The figure below shows the distribution of waiting/pending and running times in minutes. Waiting or pending time is the interval between submitting a job to the queueing system and when it actually starts running on the computing node. In our cluster, most jobs wait less than 1000 minutes (approximately 17 hours) to start running. Once the jobs start running, most of them finish within a couple of hours. </p>"
+html_output += "<img src='pending_vs_running_time_log10.png' alt='Waiting and running times' style='width:100%;'>"
 
 html_output += '''
    </div>
