@@ -24,12 +24,17 @@ with open(accFile) as f:
         elif line.startswith('=============================================================='):
             print(line)
             if (submitTime != 0):
-		if 
-                pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
-                runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
-                print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
-                pendingTimes.append(pendingTime)
-                runningtimes.append(runnnigTime)
-                submitTime=0
-                startTime=0
-                endTime=0
+                if submitTime == '-/-' or startTime == '-/-' or endTime == '-/-':
+                    print("Error in the accounting file")
+                    submitTime=0
+                    startTime=0
+                    endTime=0
+                else:
+                    pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
+                    runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
+                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
+                    pendingTimes.append(pendingTime)
+                    runningtimes.append(runnnigTime)
+                    submitTime=0
+                    startTime=0
+                    endTime=0
