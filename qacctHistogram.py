@@ -19,12 +19,11 @@ now=datetime.datetime.now()
 differenceTime = now - lastMod
 differenceTime_inDays = differenceTime / datetime.timedelta(days=1)
 
-pendingTimes=[]
-runningTimes=[]
-submitTime=0
-countJobs=0
-
 def generateHistrogram(accFile, histogramPlot):
+    pendingTimes=[]
+    runningTimes=[]
+    submitTime=0
+    countJobs=0
     with open(accFile) as f:
         for line in f:
             line=line.strip()
