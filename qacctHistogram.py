@@ -23,8 +23,8 @@ with open(accFile) as f:
         elif line.startswith('=============================================================='):
             print(line)
             if (submitTime != 0):
-                pendingTime=datetime.datetime.strptime(startTime, "%w %m %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%w %m %d %H:%M:%S %Y")
-                runnnigTime=datetime.datetime.strptime(endTime, "%w %m %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%w %m %d %H:%M:%S %Y")
+                pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
+                runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
                 print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
                 pendingTimes.append(pendingTime)
                 runningtimes.append(runnnigTime)
