@@ -16,14 +16,15 @@ with open(accFile) as f:
     for line in f:
         line=line.strip()
         if line.startswith('qsub_time'):
-            submitTime=line.replace('qsub_time   ', '')
+            submitTime=line.replace('qsub_time    ', '')
         elif line.startswith('start_time'):
-            startTime=line.replace('start_time  ', '')
+            startTime=line.replace('start_time   ', '')
         elif line.startswith('end_time'):
-            endTime=line.replace('end_time    ', '')
+            endTime=line.replace('end_time     ', '')
         elif line.startswith('=============================================================='):
             print(line)
             if (submitTime != 0):
+		if 
                 pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
                 runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
                 print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
