@@ -56,6 +56,22 @@ def generateHistrogram(accFile, histogramPlot):
                         startTime=0
                         endTime=0
 
+    #Compute descriptive statistics
+    pendingTime_stats = {
+       'mean': np.mean(pendingTimes),
+       'median': np.median(pendingTimes),
+       'max': np.max(pendingTimes),
+       'min': np.min(pendingTimes)
+    }
+
+    runningTime_stats = {
+       'mean': np.mean(runningTimes),
+       'median': np.median(runningTimes),
+       'max': np.max(runningTimes),
+       'min': np.min(runningTimes)
+    }
+
+    print(pendingTime_stats, runningTime_stats)
     # Create a DataFrame from the data
     data = pd.DataFrame({
         'Log Pending Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in pendingTimes]),
@@ -81,7 +97,8 @@ def generateHistrogram(accFile, histogramPlot):
         ax.yaxis.label.set_color('white')
 
         # Set the ticks for each power of 10
-        powers_of_ten = np.log10(np.logspace(-10, 5, num=16))
+#        powers_of_ten = np.log10(np.logspace(-10, 7, num=16))
+        powers_of_ten = range(-10,6)
         ax.set_xticks(powers_of_ten)
         ax.set_xticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
         ax.set_yticks(powers_of_ten)
