@@ -33,7 +33,7 @@ with open(accFile) as f:
         elif line.startswith('=============================================================='):
             countJobs+=1
             #print a progress bar
-            if countJobs % 1000 == 0:
+            if countJobs % 10000 == 0:
                 print(f'{countJobs} jobs processed', flush=True)
             if (submitTime != 0):
                 if submitTime == '-/-' or startTime == '-/-' or endTime == '-/-':
@@ -92,7 +92,7 @@ g.ax_marg_y.patch.set_facecolor('#282a36')
 for label in g.ax_joint.get_xticklabels():
     label.set_rotation(45)
     label.set_horizontalalignment('right')
-    
+
 # Save the figure
 file_path = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
 g.savefig(file_path, facecolor='#282a36')
