@@ -14,6 +14,7 @@ print(differenceTime)
 pendingTimes=[]
 runningTimes=[]
 submitTime=0
+countLines=0
 
 with open(accFile) as f:
     for line in f:
@@ -25,6 +26,10 @@ with open(accFile) as f:
         elif line.startswith('end_time'):
             endTime=line.replace('end_time     ', '')
         elif line.startswith('=============================================================='):
+            countLines+=1
+            #print a progress bar
+            if countLines % 1000000 == 0:
+                print(f'{countLines} lines processed', flush=True)
             if (submitTime != 0):
                 if submitTime == '-/-' or startTime == '-/-' or endTime == '-/-':
                     #print("Error in the accounting file")
