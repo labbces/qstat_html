@@ -32,9 +32,11 @@ with open(accFile) as f:
                 else:
                     pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
                     runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
-                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime}\nRunning Time:\t{runnnigTime}', flush=True)
-                    pendingTimes.append(pendingTime)
-                    runningtimes.append(runnnigTime)
+                    pendingTime_inMinutes=pendingTime / datetime.timedelta(minutes=1)
+                    runnnigTime_inMinutes=runnnigTime / datetime.timedelta(minutes=1)
+                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime_inMinutes}\nRunning Time:\t{runnnigTime_inMinutes}', flush=True)
+                    pendingTimes.append(pendingTime_inMinutes)
+                    runningtimes.append(runnnigTime_inMinutes)
                     submitTime=0
                     startTime=0
                     endTime=0
