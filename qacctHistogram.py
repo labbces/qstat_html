@@ -1,8 +1,12 @@
 import os.path, time
 import datetime
 import seaborn as sns
-import matplotlib.pyplot as plt
+import matplotlib
 import pandas as pd
+
+# Use a non-interactive backend
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 accFile='/home/riano/qstat_html/qAccounting.txt'
 lastMod=datetime.datetime.strptime(time.ctime(os.path.getmtime(accFile)), "%a %b %d %H:%M:%S %Y")
