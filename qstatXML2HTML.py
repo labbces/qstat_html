@@ -146,7 +146,7 @@ html_output = '''
 '''
 
 # Section 1: Queues and basic information
-html_output += f"<h1>Cluster Information</h1><p>Details on how to request resources to run your jobs are available <a href='uploads/BioinfoClusterCENAUSP.pdf'>here</a>.</p><p>The current usage policy (that can be seen running qconf -ssconf) implements a balanced approach to job scheduling, with significant consideration given to CPU usage and job priorities. Briefly, jobs are executed in a first-come first-serve basis, once you submit a job, given that the requested resources are available, your job will be executed by the scheduler. If submitting several jobs you can adjust their priorities (with qalter), and this willbe taken into account by the scheduler.</p>"
+html_output += f"<h1>Cluster Information</h1><p>Details on how to request resources to run your jobs are available <a href='/uploads/BioinfoClusterCENAUSP.pdf'>here</a>.</p><p>The current usage policy (that can be seen running qconf -ssconf) implements a balanced approach to job scheduling, with significant consideration given to CPU usage and job priorities. Briefly, jobs are executed in a first-come first-serve basis, once you submit a job, given that the requested resources are available, your job will be executed by the scheduler. If submitting several jobs you can adjust their priorities (with qalter), and this willbe taken into account by the scheduler.</p>"
 html_output += "<h2>Queue Information</h2><p>Last update: {lastMod}</p>"
 html_output += "<ul>"
 for queue_name, queue_info in queues.items():
