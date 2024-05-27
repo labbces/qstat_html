@@ -1,5 +1,8 @@
 import os.path, time
 import datetime
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
 
 accFile='/home/riano/qstat_html/qAccounting.txt'
 lastMod=datetime.datetime.strptime(time.ctime(os.path.getmtime(accFile)), "%a %b %d %H:%M:%S %Y")
@@ -9,7 +12,7 @@ differenceTime = now - lastMod
 print(differenceTime)
 
 pendingTimes=[]
-runningtimes=[]
+runningTimes=[]
 submitTime=0
 
 with open(accFile) as f:
@@ -34,9 +37,21 @@ with open(accFile) as f:
                     runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
                     pendingTime_inMinutes=pendingTime / datetime.timedelta(minutes=1)
                     runnnigTime_inMinutes=runnnigTime / datetime.timedelta(minutes=1)
-                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime_inMinutes}\nRunning Time:\t{runnnigTime_inMinutes}', flush=True)
+#                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime_inMinutes}\nRunning Time:\t{runnnigTime_inMinutes}', flush=True)
                     pendingTimes.append(pendingTime_inMinutes)
-                    runningtimes.append(runnnigTime_inMinutes)
+                    runningTimes.append(runnnigTime_inMinutes)
                     submitTime=0
                     startTime=0
                     endTime=0
+
+# Create a DataFrame from the data
+data = pd.DataFrame({
+    'Pending Time (minutes)': pendingTimes,
+    'Running Time (minutes)': runningTimes
+})
+
+# Plot the 2D histogram and its 1D projections
+g = sns.jointplot(x='Pending Time (minutes)', y='Running Time (minutes)', data=data, kind='hex')
+
+# Save the figure
+g.savefig("jointplot_histogram.png")
