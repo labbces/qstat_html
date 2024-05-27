@@ -25,10 +25,9 @@ with open(accFile) as f:
         elif line.startswith('end_time'):
             endTime=line.replace('end_time     ', '')
         elif line.startswith('=============================================================='):
-            print(line)
             if (submitTime != 0):
                 if submitTime == '-/-' or startTime == '-/-' or endTime == '-/-':
-                    print("Error in the accounting file")
+                    #print("Error in the accounting file")
                     submitTime=0
                     startTime=0
                     endTime=0
