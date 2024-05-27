@@ -84,6 +84,10 @@ for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
     ax.set_yticks(powers_of_ten)
     ax.set_yticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
 
+# Set limits for the axes
+g.ax_joint.set_xlim(np.log10(1e-2), np.log10(1e5))
+g.ax_joint.set_ylim(np.log10(1e-10), np.log10(1e5))
+
 g.ax_joint.patch.set_facecolor('#282a36')
 g.ax_marg_x.patch.set_facecolor('#282a36')
 g.ax_marg_y.patch.set_facecolor('#282a36')
@@ -94,8 +98,8 @@ for label in g.ax_joint.get_xticklabels():
     label.set_horizontalalignment('right')
 
 # Change the color of the 1D histogram bars
-g.ax_marg_x.hist(data['Log Pending Time (log10 minutes)'], bins=60, color='#1632e7', edgecolor='k')
-g.ax_marg_y.hist(data['Log Running Time (log10 minutes)'], bins=60, orientation='horizontal', color='#1632e7', edgecolor='k')
+#g.ax_marg_x.hist(data['Log Pending Time (log10 minutes)'], bins=60, color='#1632e7', edgecolor='k')
+g.ax_marg_y.hist(data['Log Running Time (log10 minutes)'], bins=60, orientation='horizontal', color='red', edgecolor='k')
 
 # Save the figure
 file_path = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
