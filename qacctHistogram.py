@@ -59,8 +59,34 @@ data = pd.DataFrame({
     'Log Running Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in runningTimes])
 })
 
-# Plot the 2D histogram and its 1D projections
-g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex')
+# Customize the plot
+g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex', 
+                  color='cyan', edgecolor='k')
+
+# Customize the appearance to match the background
+plt.subplots_adjust(top=0.9)
+g.fig.suptitle('Pending vs Running Time (Minutes Log10 transformed)', color='white')
+g.set_axis_labels('Log Pending Time (log10 minutes)', 'Log Running Time (log10 minutes)', fontsize=12, color='white')
+
+for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
+    ax.tick_params(colors='white')
+    ax.spines['left'].set_color('white')
+    ax.spines['bottom'].set_color('white')
+    ax.spines['top'].set_color('white')
+    ax.spines['right'].set_color('white')
+    ax.xaxis.label.set_color('white')
+    ax.yaxis.label.set_color('white')
+
+    # Set the ticks for each power of 10
+    ax.set_xticks([np.log10(x) for x in [0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000]])
+    ax.set_xticklabels([0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000])
+    ax.set_yticks([np.log10(x) for x in [0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000]])
+    ax.set_yticklabels([0.001, 0.01, 0.1, 1, 10, 100, 1000, 10000])
+
+g.ax_joint.patch.set_facecolor('#282a36')
+g.ax_marg_x.patch.set_facecolor('#282a36')
+g.ax_marg_y.patch.set_facecolor('#282a36')
 
 # Save the figure
-g.savefig("jointplot_histogram.png")
+file_path = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
+g.savefig(file_path, facecolor='#282a36')
