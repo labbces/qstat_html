@@ -14,6 +14,7 @@ submitTime=0
 
 with open(accFile) as f:
     for line in f:
+        line=line.strip()
         if line.startswith('qsub_time'):
             submitTime=line.replace('qsub_time   ', '')
         elif line.startswith('start_time'):
