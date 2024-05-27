@@ -15,11 +15,11 @@ submitTime=0
 with open(accFile) as f:
     for line in f:
         if line.startswith('qsub_time'):
-            submitTime=line.split()[1]
+            submitTime=line.replace('qsub_time   ', '')
         elif line.startswith('start_time'):
-            startTime=line.split()[1]
+            startTime=line.replace('start_time  ', '')
         elif line.startswith('end_time'):
-            endTime=line.split()[1]
+            endTime=line.replace('end_time    ', '')
         elif line.startswith('=============================================================='):
             print(line)
             if (submitTime != 0):
