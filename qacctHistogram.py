@@ -61,7 +61,7 @@ data = pd.DataFrame({
 
 # Customize the plot
 g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex', 
-                  color='#44475a', edgecolor='k')
+                  color='red', edgecolor='k')
 
 # Customize the appearance to match the background
 plt.subplots_adjust(top=0.9)
@@ -80,9 +80,9 @@ for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
     # Set the ticks for each power of 10
     powers_of_ten = np.log10(np.logspace(-10, 5, num=16))
     ax.set_xticks(powers_of_ten)
-    ax.set_xticklabels(['$10^{:.0f}$'.format(p) for p in range(-10, 6)])
+    ax.set_xticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
     ax.set_yticks(powers_of_ten)
-    ax.set_yticklabels(['$10^{:.0f}$'.format(p) for p in range(-10, 6)])
+    ax.set_yticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
 
 g.ax_joint.patch.set_facecolor('#282a36')
 g.ax_marg_x.patch.set_facecolor('#282a36')
@@ -92,6 +92,10 @@ g.ax_marg_y.patch.set_facecolor('#282a36')
 for label in g.ax_joint.get_xticklabels():
     label.set_rotation(45)
     label.set_horizontalalignment('right')
+
+# Change the color of the 1D histogram bars
+g.ax_marg_x.hist(data['Log Pending Time (log10 minutes)'], bins=60, color='#1632e7', edgecolor='k')
+g.ax_marg_y.hist(data['Log Running Time (log10 minutes)'], bins=60, orientation='horizontal', color='#1632e7', edgecolor='k')
 
 # Save the figure
 file_path = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
