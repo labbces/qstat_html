@@ -1,110 +1,97 @@
-import os.path, time
+import os
+import time
 import datetime
-import seaborn as sns
-import matplotlib
 import pandas as pd
 import numpy as np
 import sys
+import gzip
+import argparse
+import seaborn as sns
+import matplotlib
 
 # Use a non-interactive backend
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-accFile='/home/riano/qstat_html/qAccounting.txt'
-histogramPlot = "/home/riano/qstat_html/pending_vs_running_time_log10.png"
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Process SGE accounting file and generate histogram.')
+    parser.add_argument('-f', '--file', type=str, required=True, help='Path to the accounting file (can be .gz)')
+    parser.add_argument('-o', '--output', type=str, required=True, help='Output plot file path')
+    return parser.parse_args()
 
-lastMod=datetime.datetime.strptime(time.ctime(os.path.getmtime(accFile)), "%a %b %d %H:%M:%S %Y")
-now=datetime.datetime.now()
+def open_accounting_file(file_path):
+    return gzip.open(file_path, 'rt') if file_path.endswith('.gz') else open(file_path, 'r')
 
-differenceTime = now - lastMod
-differenceTime_inDays = differenceTime / datetime.timedelta(days=1)
+def file_age_in_days(file_path):
+    last_mod = datetime.datetime.strptime(time.ctime(os.path.getmtime(file_path)), "%a %b %d %H:%M:%S %Y")
+    now = datetime.datetime.now()
+    return (now - last_mod) / datetime.timedelta(days=1)
 
-def generateHistrogram(accFile, histogramPlot):
-    pendingTimes=[]
-    runningTimes=[]
-    submitTime=0
-    countJobs=0
-    with open(accFile) as f:
+def parse_accounting_file(file_path):
+    job_records = []
+    current_job = {'qsub_time': None, 'start_time': None, 'end_time': None}
+
+    with open_accounting_file(file_path) as f:
         for line in f:
-            line=line.strip()
+            line = line.strip()
+            if not line:
+                continue
+
             if line.startswith('qsub_time'):
-                submitTime=line.replace('qsub_time    ', '')
+                current_job['qsub_time'] = line.split('qsub_time')[-1].strip()
             elif line.startswith('start_time'):
-                startTime=line.replace('start_time   ', '')
+                current_job['start_time'] = line.split('start_time')[-1].strip()
             elif line.startswith('end_time'):
-                endTime=line.replace('end_time     ', '')
+                current_job['end_time'] = line.split('end_time')[-1].strip()
             elif line.startswith('=============================================================='):
-                countJobs+=1
-                #print a progress bar
-                if countJobs % 10000 == 0:
-                    print(f'{countJobs} jobs processed', flush=True)
-                if (submitTime != 0):
-                    if submitTime == '-/-' or startTime == '-/-' or endTime == '-/-':
-                        #print("Error in the accounting file")
-                        submitTime=0
-                        startTime=0
-                        endTime=0
-                    else:
-                        pendingTime=datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(submitTime, "%a %b %d %H:%M:%S %Y")
-                        runnnigTime=datetime.datetime.strptime(endTime, "%a %b %d %H:%M:%S %Y")-datetime.datetime.strptime(startTime, "%a %b %d %H:%M:%S %Y")
-                        pendingTime_inMinutes=pendingTime / datetime.timedelta(minutes=1)
-                        runnnigTime_inMinutes=runnnigTime / datetime.timedelta(minutes=1)
-    #                    print(f'submit Time:\t{submitTime}\nstart Time:\t{startTime}\nend Time:\t{endTime}\nPending Time:\t{pendingTime_inMinutes}\nRunning Time:\t{runnnigTime_inMinutes}', flush=True)
-                        pendingTimes.append(pendingTime_inMinutes)
-                        runningTimes.append(runnnigTime_inMinutes)
-                        submitTime=0
-                        startTime=0
-                        endTime=0
+                if all(current_job.values()) and '-/-' not in current_job.values():
+                    job_records.append(current_job.copy())
+                current_job = {'qsub_time': None, 'start_time': None, 'end_time': None}
 
-    #Compute descriptive statistics
-    pendingTime_stats = {
-       'mean': np.mean(pendingTimes),
-       'median': np.median(pendingTimes),
-       'max': np.max(pendingTimes),
-       'min': np.min(pendingTimes)
-    }
+    return pd.DataFrame(job_records)
 
-    runningTime_stats = {
-       'mean': np.mean(runningTimes),
-       'median': np.median(runningTimes),
-       'max': np.max(runningTimes),
-       'min': np.min(runningTimes)
-    }
+def process_job_dataframe(df):
+    if df.empty:
+        print('No valid jobs found.')
+        return None
 
-    print(pendingTime_stats, runningTime_stats)
-    # Create a DataFrame from the data
+    df['qsub_time'] = pd.to_datetime(df['qsub_time'], format='%a %b %d %H:%M:%S %Y')
+    df['start_time'] = pd.to_datetime(df['start_time'], format='%a %b %d %H:%M:%S %Y')
+    df['end_time'] = pd.to_datetime(df['end_time'], format='%a %b %d %H:%M:%S %Y')
+
+    df['pending_time_min'] = (df['start_time'] - df['qsub_time']).dt.total_seconds() / 60
+    df['running_time_min'] = (df['end_time'] - df['start_time']).dt.total_seconds() / 60
+
+    df = df[(df['pending_time_min'] >= 0) & (df['running_time_min'] >= 0)]
+
+    return df
+
+def generate_histogram(df, histogram_plot):
     data = pd.DataFrame({
-        'Log Pending Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in pendingTimes]),
-        'Log Running Time (log10 minutes)': np.log10([x if x > 0 else 1e-10 for x in runningTimes])
+        'Log Pending Time (log10 minutes)': np.log10(df['pending_time_min'].replace(0, 1e-10)),
+        'Log Running Time (log10 minutes)': np.log10(df['running_time_min'].replace(0, 1e-10))
     })
 
-    # Customize the plot
-    g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex', 
-                    color='red', edgecolor='k')
+    g = sns.jointplot(x='Log Pending Time (log10 minutes)', y='Log Running Time (log10 minutes)', data=data, kind='hex',
+                      color='red', edgecolor='k')
 
-    # Customize the appearance to match the background
     plt.subplots_adjust(top=0.9)
-    g.fig.suptitle('Pending vs Running Time Minutes (Log10 transformed)', color='white')
+    g.fig.suptitle('Pending vs Running Time Minutes (Log10)', color='white')
     g.set_axis_labels('Pending Time (minutes)', 'Running Time (minutes)', fontsize=12, color='white')
 
     for ax in [g.ax_joint, g.ax_marg_x, g.ax_marg_y]:
         ax.tick_params(colors='white')
-        ax.spines['left'].set_color('white')
-        ax.spines['bottom'].set_color('white')
-        ax.spines['top'].set_color('white')
-        ax.spines['right'].set_color('white')
+        for spine in ax.spines.values():
+            spine.set_color('white')
         ax.xaxis.label.set_color('white')
         ax.yaxis.label.set_color('white')
 
-        # Set the ticks for each power of 10
-#        powers_of_ten = np.log10(np.logspace(-10, 7, num=16))
-        powers_of_ten = range(-10,6)
+        powers_of_ten = range(-10, 6)
         ax.set_xticks(powers_of_ten)
-        ax.set_xticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
+        ax.set_xticklabels(['$10^{{{}}}$'.format(p) for p in powers_of_ten])
         ax.set_yticks(powers_of_ten)
-        ax.set_yticklabels(['$10^{{{:.0f}}}$'.format(p) for p in range(-10, 6)])
+        ax.set_yticklabels(['$10^{{{}}}$'.format(p) for p in powers_of_ten])
 
-    # Set limits for the axes
     g.ax_joint.set_xlim(np.log10(1e-2), np.log10(1e5))
     g.ax_joint.set_ylim(np.log10(1e-10), np.log10(1e5))
 
@@ -112,25 +99,45 @@ def generateHistrogram(accFile, histogramPlot):
     g.ax_marg_x.patch.set_facecolor('#282a36')
     g.ax_marg_y.patch.set_facecolor('#282a36')
 
-    # Rotate x-axis labels for better readability
     for label in g.ax_joint.get_xticklabels():
         label.set_rotation(45)
         label.set_horizontalalignment('right')
 
-    # Change the color of the 1D histogram bars
-    #g.ax_marg_x.hist(data['Log Pending Time (log10 minutes)'], bins=60, color='#1632e7', edgecolor='k')
     g.ax_marg_y.hist(data['Log Running Time (log10 minutes)'], bins=60, orientation='horizontal', color='red', edgecolor='k')
 
-    # Save the figure
-    g.savefig(histogramPlot, facecolor='#282a36')
+    g.savefig(histogram_plot, facecolor='#282a36')
+    print(f'Histogram saved to {histogram_plot}')
 
-if differenceTime_inDays > 60:
-    print(f'File was modified {differenceTime_inDays} days ago. You should generate again the file {accFile}', flush=True)
-    print(f'To do that run qacct -j "*" > {accFile}', flush=True)
-    print(f'Exiting the program', flush=True)
-    sys.exit()
-else:
-    if os.path.exists(histogramPlot):
-        print(f'File {histogramPlot} already exists. Nothing to do here.', flush=True)
-    else:
-        generateHistrogram(accFile, histogramPlot)
+if __name__ == '__main__':
+    args = parse_arguments()
+
+    if not os.path.exists(args.file):
+        print(f'Error: The file {args.file} does not exist.')
+        sys.exit(1)
+
+    file_age = file_age_in_days(args.file)
+
+    if file_age > 60:
+        print(f'File {args.file} was modified {file_age:.2f} days ago. You should regenerate it with:')
+        print(f'qacct -j "*" > {args.file}')
+        sys.exit(0)
+
+    regenerate_plot = True
+
+    if os.path.exists(args.output):
+        plot_age = file_age_in_days(args.output)
+        if plot_age < 30:
+            print(f'Plot {args.output} is up-to-date (modified {plot_age:.2f} days ago). Nothing to do.')
+            regenerate_plot = False
+        else:
+            print(f'Plot {args.output} is older than 30 days. Regenerating.')
+
+    if regenerate_plot:
+        df = parse_accounting_file(args.file)
+        df = process_job_dataframe(df)
+        if df is not None and not df.empty:
+            print(df[['pending_time_min', 'running_time_min']].describe())
+            generate_histogram(df, args.output)
+        else:
+            print('No valid durations found.')
+
