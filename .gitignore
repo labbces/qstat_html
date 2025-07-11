@@ -6,3 +6,4 @@ qAccounting.txt.gz
 qstatCluster.html
 qstatCluster.xml
 summary_stats.json
+*.log
