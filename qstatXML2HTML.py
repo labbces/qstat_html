@@ -1,7 +1,19 @@
 import xml.etree.ElementTree as ET
 import os.path, time
+import json
 
 xmlFile='/home/riano/qstat_html/qstatCluster.xml'
+statsfile='/home/riano/qstat_html/summary_stats.json'
+
+with open(statsfile) as f:
+    stats = json.load(f)
+
+
+pending_minutes=stats['pending_time_min']['mean']
+pending_hours=stats["pending_time_min"]["mean"]/60
+running_minutes=stats["running_time_min"]["mean"]
+count_jobs=int(stats["pending_time_min"]["count"])
+
 lastMod=time.ctime(os.path.getmtime(xmlFile))
 
 
@@ -146,7 +158,7 @@ html_output = '''
 '''
 
 # Section 1: Queues and basic information
-html_output += f"<h1>Cluster Information</h1><p>Details on how to request resources to run your jobs are available <a href='/uploads/BioinfoClusterCENAUSP.pdf'>here</a>.</p><p>The current usage policy (that can be seen running qconf -ssconf) implements a balanced approach to job scheduling, with significant consideration given to CPU usage and job priorities. Briefly, jobs are executed in a first-come first-serve basis, once you submit a job, given that the requested resources are available, your job will be executed by the scheduler. If submitting several jobs you can adjust their priorities (with qalter), and this willbe taken into account by the scheduler.</p>"
+html_output += f"<h1>Cluster Information</h1><p>Details on how to request resources to run your jobs are available <a href='/uploads/BioinfoClusterCENAUSP.pdf'>here</a>.</p><p>The current usage policy (that can be seen running qconf -ssconf) implements a balanced approach to job scheduling, with significant consideration given to CPU usage and job priorities. Briefly, jobs are executed in a first-come first-serve basis, once you submit a job, given that the requested resources are available, your job will be executed by the scheduler. If submitting several jobs you can adjust their priorities (with qalter), and this will be taken into account by the scheduler.</p>"
 html_output += f"<h2>Queue Information</h2><p>Last update: {lastMod}</p>"
 html_output += "<ul>"
 for queue_name, queue_info in queues.items():
@@ -193,7 +205,7 @@ html_output += "</table>"
 
 # Section 3: Pending Jobs table
 html_output += "<h2>Waiting and running times</h2>"
-html_output += "<p>The figure below shows the distribution of waiting/pending and running times in minutes. Waiting or pending time is the interval between submitting a job to the queueing system and when it actually starts running on the computing node. In our cluster, most jobs wait less than 1000 minutes (approximately 17 hours) to start running. Once the jobs start running, most of them finish within a couple of hours. </p>"
+html_output += f"<p>The figure below shows the distribution of waiting/pending and running times in minutes. Waiting or pending time is the interval between submitting a job to the queueing system and when it actually starts running on the computing node. In our cluster, most jobs, in average, wait less than {pending_minutes:.2f} minutes (approximately {pending_hours:.3f} hours) to start running. Once the jobs start running, most of them, in average, finish within {running_minutes:.2f} minutes, based on {count_jobs} jobs. </p>"
 html_output += "<img src='pending_vs_running_time_log10.png' alt='Waiting and running times' style='width:100%;'>"
 
 html_output += '''
