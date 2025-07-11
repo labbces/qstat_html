@@ -8,6 +8,7 @@ import gzip
 import argparse
 import seaborn as sns
 import matplotlib
+import json
 
 # Use a non-interactive backend
 matplotlib.use('Agg')
@@ -138,6 +139,8 @@ if __name__ == '__main__':
         if df is not None and not df.empty:
             print(df[['pending_time_min', 'running_time_min']].describe())
             generate_histogram(df, args.output)
+            with open("summary_stats.json", "w") as f:
+                json.dump(df[['pending_time_min', 'running_time_min']].describe().to_dict(), f, indent=2)
         else:
             print('No valid durations found.')
 
