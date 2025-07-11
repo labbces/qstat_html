@@ -1,5 +1,6 @@
 pending_vs_running_time_log10.png
 pending_vs_running_time_log10.old.png
+cron_getQstatXML.log
 qAccounting.txt.gz
 qstatCluster.html
 qstatCluster.xml
